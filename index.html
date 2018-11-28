@@ -14,9 +14,7 @@
       <script>
          $(function () {
             for (var index in images) {
-               var imgTitle = images[index].title;
-               var imgPath = images[index].path;
-               var imgTag = getImage(imgTitle, imgPath, "square");
+               var imgTag = getImage(images[index], "square");
                $('.gallery').append('<li>' + imgTag + '</li>');
             }
             $('li img').on('mouseenter', mouseEnter);
@@ -24,13 +22,14 @@
             $('li img').on('mousemove', mouseMove);
             function mouseEnter(e) {
                $(this).addClass('gray');
-               var previewDiv = getDivPreview($(this).attr('src').replace(/^.*[\\\/]/, ''), $(this).attr('alt'));
+               var previewDiv = getDivPreview($(this).attr('alt'));
                $("body").append(previewDiv);
                var top = e.pageY;
                var left = e.pageX;
                $("#preview").css("top", top);
                $("#preview").css("left", left);
-               $("#preview").fadeIn(1000);
+               mouseMove(e);
+               $("#preview").delay(250).fadeIn(500);
             }
             function mouseLeave(e) {
                $(this).removeClass('gray');
@@ -42,20 +41,29 @@
                $("#preview").css("top", ((top - window.outerHeight / 2) / 3 + (window.outerHeight / 2)));
                $("#preview").css("left", ((left - window.outerWidth / 2) / 3 + (window.outerWidth / 2)));
             }
-            function getDivPreview(imgSrc, alt) {
+            function findImage(id) {
+               for (var index in images) 
+                  if (images[index].id == id) 
+                     return images[index];
+                  }
+               function getDivPreview(id) {
+               var image = findImage(id);
                var pdiv = $('<div />');
+               var infobox = $('<div />');
+               infobox.html("<strong>" + image.title + "</strong><em> by " + image.user + " in " + image.city + ", " + image.country + "</em>");
+               infobox.css("color", "#bbb");
                pdiv.attr('id', 'preview');
-               pdiv.css("display", 'block');
                pdiv.css("position", "absolute");
-               pdiv.css("padding", "10pt");
+               pdiv.css("padding", "2pt 10pt 10pt 10pt");
                pdiv.css("pointer-events", "none");
                pdiv.css("transform", "translate(-50%,-50%)");
-               pdiv.append(getImage(alt, imgSrc, "medium"));
+               pdiv.append(infobox);
+               pdiv.append(getImage(image, "medium"));
                return pdiv;
             }
          });
-         function getImage(alt, path, folder) {
-            var tag = '<img src=\'images/' + folder + '/' + path + '\' alt=\'' + alt + '\' />';
+         function getImage(image, folder) {
+            var tag = '<img src=\'images/' + folder + '/' + image.path + '\' alt=\'' + image.id + '\' />';
             return tag;
          }
       </script>
