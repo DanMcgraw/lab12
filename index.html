@@ -15,17 +15,49 @@
          $(function () {
             for (var index in images) {
                var imgTitle = images[index].title;
-               var imgPath
-               var imgTag = getImage(imgTitle, imgPath);
+               var imgPath = images[index].path;
+               var imgTag = getImage(imgTitle, imgPath, "square");
                $('.gallery').append('<li>' + imgTag + '</li>');
             }
             $('li img').on('mouseenter', mouseEnter);
             $('li img').on('mouseleave', mouseLeave);
             $('li img').on('mousemove', mouseMove);
-            function mouseEnter(e) {}
-            function mouseLeave(e) {}
-            function mouseMove(e) {}
-         })
+            function mouseEnter(e) {
+               $(this).addClass('gray');
+               var previewDiv = getDivPreview($(this).attr('src').replace(/^.*[\\\/]/, ''), $(this).attr('alt'));
+               $("body").append(previewDiv);
+               var top = e.pageY;
+               var left = e.pageX;
+               $("#preview").css("top", top);
+               $("#preview").css("left", left);
+               $("#preview").fadeIn(1000);
+            }
+            function mouseLeave(e) {
+               $(this).removeClass('gray');
+               $("#preview").remove();
+            }
+            function mouseMove(e) {
+               var top = e.pageY;
+               var left = e.pageX;
+               $("#preview").css("top", top);
+               $("#preview").css("left", left);
+            }
+            function getDivPreview(imgSrc, alt) {
+               var pdiv = $('<div />');
+               pdiv.attr('id', 'preview');
+               pdiv.css("display", 'block');
+               pdiv.css("position", "absolute");
+               pdiv.css("padding", "10pt");
+               pdiv.css("pointer-events", "none");
+               pdiv.css("transform", "translate(-50%,-50%)");
+               pdiv.append(getImage(alt, imgSrc, "medium"));
+               return pdiv;
+            }
+         });
+         function getImage(alt, path, folder) {
+            var tag = '<img src=\'images/' + folder + '/' + path + '\' alt=\'' + alt + '\' />';
+            return tag;
+         }
       </script>
    </head>
    <body>
