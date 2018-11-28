@@ -1,47 +1,130 @@
-<html>
-<head>
-<title>Chapter 10</title>
-<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/styles.css">
-
-<script>
-	//TBD
-</script>      
-</head>    
-<body class="tiled">
-<header>
-    <h1>Art Filters</h1>
-</header>
-<main>
-    <div id="sliderBox">
-        <form>
-           <label>Opacity: </label><p><input type="range" id="sliderOpacity" min="0" max="100" value="100" class="sliders" /> <span id="numOpacity">100</span>%</p>
-           <p><label>Saturation: </label><input type="range" id="sliderSaturation" min="1" max="300" value="100" class="sliders"/> <span id="numSaturation">100</span>%</p>
-           <p><label>Brightness: </label><input type="range" id="sliderBrightness" min="0" max="300" value="100" class="sliders" /> <span id="numBrightness">100</span>%</p>
-           <p><label>Hue Rotate: </label><input type="range" id="sliderHue" min="0" max="360" value="0" class="sliders" /> <span id="numHue">0</span>deg</p>
-           <p><label>Grayscale: </label><input type="range" id="sliderGray" min="0" max="100" value="0" class="sliders"/> <span id="numGray">0</span>%</p>
-           <p><label>Blur: </label><input type="range" id="sliderBlur" min="0" max="10" value="0" class="sliders" /> <span id="numBlur">0</span>px</p>
-           <p><button id="resetFilters">Reset</button> </p>
-        </form>    
-    </div>
-    <figure id="imgManipulated">
-        <img src="images/medium/painting1.jpg" > 
-        <figcaption>
-            <em>Still Life with Flowers in a Glass Vase</em> <br>
-            Jan Davidsz. de Heem, 1650 - 1683
-        </figcaption>
-    </figure>   
-    <div id="thumbBox">
-        <div><img src="images/small/painting1.jpg"  alt="Still Life with Flowers in a Glass Vase" title="Jan Davidsz. de Heem, 1650 - 1683"/></div>
-        <div><img src="images/small/painting2.jpg"  alt="Portrait of Alida Christina Assink" title="Jan Adam Kruseman, 1833"/></div>
-        <div><img src="images/small/painting3.jpg"  alt="Self-portrait" title="Vincent van Gogh, 1887"/></div>
-        <div><img src="images/small/painting4.jpg"  alt="William II, Prince of Orange, and his Bride, Mary Stuart" title="Anthony van Dyck, 1641"/></div>
-        <div><img src="images/small/painting5.jpg"  alt="Milkmaid" title="Johannes Vermeer, c. 1660"/></div>
-    </div>
-</main>
-<script>
-
-</script>    
-</body>   
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Chapter 7</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="css/bootstrap.min.css"/>
+      <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+      <link rel="stylesheet" href="css/gallery.css"/>
+      <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+      <script src="js/images.js"></script>
+      <script>
+         $(function () {
+            for (var index in images) {
+               var imgTitle = images[index].title;
+               var imgPath
+               var imgTag = getImage(imgTitle, imgPath);
+               $('.gallery').append('<li>' + imgTag + '</li>');
+            }
+            $('li img').on('mouseenter', mouseEnter);
+            $('li img').on('mouseleave', mouseLeave);
+            $('li img').on('mousemove', mouseMove);
+            function mouseEnter(e) {}
+            function mouseLeave(e) {}
+            function mouseMove(e) {}
+         })
+      </script>
+   </head>
+   <body>
+      <header>
+         <div class="topHeaderRow">
+            <div class="container">
+               <div class="pull-right">
+                  <ul class="list-inline">
+                     <li>
+                        <a href="#">
+                           <span class="glyphicon glyphicon-log-out"></span>
+                           Logout</a>
+                     </li>
+                     <li>
+                        <a href="#">
+                           <span class="glyphicon glyphicon-user"></span>
+                           Profile</a>
+                     </li>
+                     <li>
+                        <a href="#">
+                           <span class="glyphicon glyphicon-star"></span>
+                           Favorites</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <!-- end topHeaderRow -->
+         <nav class="navbar navbar-default ">
+            <div class="container">
+               <!-- Brand and toggle get grouped for better mobile display -->
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Share Your Travels</a>
+               </div>
+               <!-- Collect the nav links, forms, and other content for toggling -->
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-left">
+                     <li>
+                        <a href="#">Home</a>
+                     </li>
+                     <li>
+                        <a href="#">About</a>
+                     </li>
+                     <li>
+                        <a href="#">Contact</a>
+                     </li>
+                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse
+                           <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                           <li>
+                              <a href="#">Countries</a>
+                           </li>
+                           <li>
+                              <a href="#">Images</a>
+                           </li>
+                           <li>
+                              <a href="#">Posts</a>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+                  <form class="navbar-form navbar-right" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                     </div>
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+               </div>
+               <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+         </nav>
+      </header>
+      <!-- Page Content -->
+      <main class="container">
+         <ul class="gallery"></ul>
+      </main>
+      <footer>
+         <div class="container-fluid">
+            <div class="row final">
+               <p>Copyright &copy; 2017 Creative Commons ShareAlike</p>
+               <p>
+                  <a href="#">Home</a>
+                  /
+                  <a href="#">About</a>
+                  /
+                  <a href="#">Contact</a>
+                  /
+                  <a href="#">Browse</a>
+               </p>
+            </div>
+         </div>
+      </footer>
+   </body>
 </html>
