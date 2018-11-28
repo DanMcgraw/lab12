@@ -39,8 +39,8 @@
             function mouseMove(e) {
                var top = e.pageY;
                var left = e.pageX;
-               $("#preview").css("top", ((top / 2) + (window.outerHeight / 2)) / 2);
-               $("#preview").css("left", ((left / 2) + (window.outerWidth / 2)) / 2);
+               $("#preview").css("top", ((top - window.outerHeight) / 2 + (window.outerHeight / 2)));
+               $("#preview").css("left", ((left - window.outerWidth) / 2 + (window.outerWidth / 2)));
             }
             function getDivPreview(imgSrc, alt) {
                var pdiv = $('<div />');
